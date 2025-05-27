@@ -6,12 +6,12 @@ cypress/support/commands.js @Frantisekt
 cypress/support/pagesObject/*.js @Frantisekt
 cypress/integration/**/*.js @Frantisekt
 
-# QA Lead ()
-# cypress/fixture/*.json
-# cypress/integration/*.feature
+# QA Lead (Duquemore)
+cypress/fixture/*.json @Duquemore
+cypress/integration/*.feature @Duquemore
 
-# Project Manager ()
-# cypress.json
-# package.json
-# cypress/support/index.js
-# cypress/plugins/index.js
+# Project Manager (Duquemore, SoyEdwinCabrera)
+cypress.json @Duquemore @SoyEdwinCabrera
+package.json @Duquemore @SoyEdwinCabrera
+cypress/support/index.js @Duquemore @SoyEdwinCabrera
+cypress/plugins/index.js @Duquemore @SoyEdwinCabrera
