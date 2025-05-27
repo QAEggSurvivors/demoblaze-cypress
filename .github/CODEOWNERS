@@ -11,7 +11,7 @@ cypress/integration/**/*.js @Frantisekt
 # cypress/integration/*.feature
 
 # Project Manager ()
-# cypress/cypress.json
-# cypress/package.json
+# cypress.json
+# package.json
 # cypress/support/index.js
 # cypress/plugins/index.js
