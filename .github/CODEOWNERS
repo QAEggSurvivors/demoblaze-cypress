@@ -1,10 +1,10 @@
 # Devops (RichardAlmanza)
 * @RichardAlmanza
 
-# Devs Lead (Frantisekt)
-cypress/support/commands.js @Frantisekt
-cypress/support/pagesObject/*.js @Frantisekt
-cypress/integration/**/*.js @Frantisekt
+# Devs Lead (Frantisekt emzima24)
+cypress/support/commands.js @Frantisekt @emzima24
+cypress/support/pagesObject/*.js @Frantisekt @emzima24
+cypress/integration/**/*.js @Frantisekt @emzima24
 
 # QA Lead (Duquemore)
 cypress/fixture/*.json @Duquemore
