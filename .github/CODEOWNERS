@@ -1,1 +1,7 @@
+# Devops (RichardAlmanza)
 * @RichardAlmanza
+
+# Devs Lead (Frantisekt)
+cypress/support/commands.js @Frantisekt
+cypress/support/pagesObject/*.js @Frantisekt
+cypress/integration/**/*.js @Frantisekt
