@@ -5,3 +5,13 @@
 cypress/support/commands.js @Frantisekt
 cypress/support/pagesObject/*.js @Frantisekt
 cypress/integration/**/*.js @Frantisekt
+
+# QA Lead ()
+# cypress/fixture/*.json
+# cypress/integration/*.feature
+
+# Project Manager ()
+# cypress/cypress.json
+# cypress/package.json
+# cypress/support/index.js
+# cypress/plugins/index.js
