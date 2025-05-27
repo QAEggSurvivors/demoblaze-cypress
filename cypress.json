@@ -1,1 +1,13 @@
-{}
+{
+  "baseUrl": "https://www.demoblaze.com/",
+  "defaultCommandTimeout": 4000,
+  "viewportWidth": 1280,
+  "viewportHeight": 720,
+  "env": {
+    "allure": true,
+    "allureResultsPath": "allure-results"
+  },
+  "testFiles": "**/*.feature",
+  "videosFolder": "allure-results/videos",
+  "screenshotsFolder": "allure-results/screenshots"
+}
