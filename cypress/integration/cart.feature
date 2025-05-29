@@ -1,5 +1,6 @@
 # # BORRAR ESTE TEXTO ES SOLO CON CARACTER INFORMATIVO
 # # UNA REFERENCIA ESTA EN LA PAGINA example.feature
+
 # # para escribir los casos de prueba en gherkin
 # # siempre en ingles lo más simple posible
 
