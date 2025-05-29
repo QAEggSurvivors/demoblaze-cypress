@@ -19,5 +19,13 @@
   "                            ": "                            ",
   "ejemplo con texto": "textPlaceHolderUsername: \"texto_mencionado\"",
   "ejemplo con arreglo": "array: [\"item1\",\"item3\",\"item3\",]",
-  
+
+  "-----------------------------------": "-----------------------------------",
+  "OBSERVACION IMPORTANTE": "SI VOY A USAR CONTAINS (AUNQUE NO SE RECOMIENDA)",
+  "debo poder usar un texto": "entonces se hace lo siguiente:",
+  "1) se coloca en el json expected": "2) se nomencla de esta forma",
+  "se coloca text al inicio": "y se coloca Sel al final",  
+  "                            ": "                            ",
+  "ejemplo con texto y locator": "textLogInButtonSel: \"texto_mencionado\""
+
 }

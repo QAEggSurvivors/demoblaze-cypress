@@ -1,5 +1,6 @@
 # # BORRAR ESTE TEXTO ES SOLO CON CARACTER INFORMATIVO
-# # UNA REFERENCIA ESTA EN LA PAGINA ExamplePage.js
+# # UNA REFERENCIA ESTA EN LA PAGINA example.feature
+
 # # para escribir los casos de prueba en gherkin
 # # siempre en ingles lo más simple posible
 
@@ -40,6 +41,33 @@
 #     Then I should see a product in the carousel
 #     And I should see other product in the carousel
 
-# # Recuerden que si se coloca entre comillas es una variable
+# # Recuerden que si se coloca entre comillas dobles es una variable
 # # que se recibe como un string y luego se castea si es conveniente
 # # y ese valor se envia a la función que use este caso en el steps.js  
+
+# # se aconseja hacer al menos 2 o 3 casos de pruebas 
+# # puede ser cualquier combinación: 
+# # 1 escenario con 3 casos 
+# # 3 escenarios con 1 caso cada uno
+# # 2 escenarios con 1 escenario 1 caso y el otro con 2 casos
+
+# Feature: Google Main Page
+
+#   I want to open a search engine
+  
+#   Scenario: Opening a search engine page 
+# #   otra opcion puede ser: 
+# #   As a user, I want to search for "egg live" in the search engine to access it.
+#     Given I open Google page
+#     When I write in the search bar "egg live"
+#     And I press enter on the keyboard
+#     Then I see "Google" in the title
+#     And I see "egg live" among the first 5 search results.
+
+# # recuerda colocar el texto igual en los .js steps 
+# # solo se pueden sustituir los "" por {string}
+# # y se puede usar o no en la funcion step correspondiente
+
+# # Si una linea es exacamente igual en dos escenarios 
+# # por ejemplo el Given solo es necesaria escrbirla 
+# # una vez en el .js  step correspondiente
