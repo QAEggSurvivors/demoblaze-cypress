@@ -51,23 +51,23 @@
 # # 3 escenarios con 1 caso cada uno
 # # 2 escenarios con 1 escenario 1 caso y el otro con 2 casos
 
-# Feature: Google Main Page
+Feature: Google Main Page
 
-#   I want to open a search engine
+  I want to open a search engine
   
-#   Scenario: Opening a search engine page 
-# #   otra opcion puede ser: 
-# #   As a user, I want to search for "egg live" in the search engine to access it.
-#     Given I open Google page
-#     When I write in the search bar "egg live"
-#     And I press enter on the keyboard
-#     Then I see "Google" in the title
-#     And I see "egg live" among the first 5 search results.
+  Scenario: Opening a search engine page 
+#   otra opcion puede ser: 
+#   As a user, I want to search for "egg live" in the search engine to access it.
+    Given I open Google page
+    When I write in the search bar "egg live"
+    And I press enter on the keyboard
+    Then I see "Google" in the title
+    And I see "egg live" among the first 5 search results.
 
-# # recuerda colocar el texto igual en los .js steps 
-# # solo se pueden sustituir los "" por {string}
-# # y se puede usar o no en la funcion step correspondiente
+# recuerda colocar el texto igual en los .js steps 
+# solo se pueden sustituir los "" por {string}
+# y se puede usar o no en la funcion step correspondiente
 
-# # Si una linea es exacamente igual en dos escenarios 
-# # por ejemplo el Given solo es necesaria escrbirla 
-# # una vez en el .js  step correspondiente
+# Si una linea es exacamente igual en dos escenarios 
+# por ejemplo el Given solo es necesaria escrbirla 
+# una vez en el .js  step correspondiente
