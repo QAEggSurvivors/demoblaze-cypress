@@ -1,0 +1,22 @@
+{
+  "idLinkLogo": "#nava",
+  "cssLinkHome": "li a[href='index.html']",
+  "cssLinkContact": "[data-target='#exampleModal']",
+  "cssLinkAboutus": "[data-target='#videoModal']",
+  "idLinkCart": "#cartur",
+  "idLinkLogin": "#login2",
+  "idLinkSignup": "#signin2",
+  "idLinkLogout": "#logout2",
+  "idLinkUserName": "#nameofuser",
+  "classLinkCarouselLeftArrow": ".carousel-control-prev",
+  "classLinkCarouselRightArrow": ".carousel-control-next",
+  "cssCarouselImages": ".carousel-item.active img",
+  "cssCarouselPositionIndicators": "[data-target='#carouselExampleIndicators']",
+  "cssPhonesCategory": "[onclick=\"byCat('phone')\"]",
+  "cssLaptopsCategory": "[onclick=\"byCat('notebook')\"]",
+  "cssMonitorsCategory": "[onclick=\"byCat('monitor')\"]",
+  "classProductImages": ".card > a",
+  "classProductTitles": ".hrefch",
+  "idPreviousButton": "#prev2",
+  "idNextButton": "#next2"
+}
