@@ -41,7 +41,7 @@
 #     Then I should see a product in the carousel
 #     And I should see other product in the carousel
 
-# # Recuerden que si se coloca entre comillas dobles es una variable
+# # Recuerden que si se coloca entre comillas es una variable
 # # que se recibe como un string y luego se castea si es conveniente
 # # y ese valor se envia a la función que use este caso en el steps.js  
 
