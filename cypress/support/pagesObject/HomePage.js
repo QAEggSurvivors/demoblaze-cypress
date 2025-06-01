@@ -13,8 +13,7 @@ class HomePage {
   getCarouselLeftArrow = () => cy.get(locators.classLinkCarouselLeftArrow);
   getCarouselRightArrow = () => cy.get(locators.classLinkCarouselRightArrow);
   getCarouselImages = () => cy.get(locators.cssCarouselImages);
-  getCarouselPositionIndicators = () =>
-    cy.get(locators.cssCarouselPositionIndicators);
+  getCarouselPositionIndicators = () => cy.get(locators.cssCarouselPositionIndicators);
   getPhonesCategory = () => cy.get(locators.cssPhonesCategory);
   getLaptopsCategory = () => cy.get(locators.cssLaptopsCategory);
   getMonitorsCategory = () => cy.get(locators.cssMonitorsCategory);
@@ -22,10 +21,10 @@ class HomePage {
   getProductTitles = () => cy.get(locators.classProductTitles);
   getPreviousButton = () => cy.get(locators.idPreviousButton);
   getNextButton = () => cy.get(locators.idNextButton);
-
+  
+  goMainUrl = () => cy.visit("/");
   getUrl = () => cy.url();
   getTitle = () => cy.title();
-  goMainUrl = () => cy.visit("/");
 
   clickLogo() {
     this.getLogo().click();
