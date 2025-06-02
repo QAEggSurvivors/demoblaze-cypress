@@ -1,29 +1,47 @@
-// // BORRAR ESTE TEXTO ES SOLO CON CARACTER INFORMATIVO
-// // UNA REFERENCIA ESTA EN LA PAGINA ExamplePage.js
-// // se importa la pagina de la que se heredan todas atributos y metodos
-// // luego se extiende esa clase para que la herencia suceda:
-// import ProductPage from './ProductPage';
-// class ExamplePage extends ProductPage {
-// }
-// export default ExamplePage;
+import HomePage from './HomePage';
 
-// // los metodos se identifican la acción que hacen:
-// // si solo quiero traer un locator para luego usarlo
-// // se debe siempre traer el locator para luego usarlo a menos que tenga
-// // alguna condicion especial que haga que mejor que no
-// getLocator() = {return cy.get(pageLocatorCypress.env('pageLocators').NombreLocator).type(username)}
+const locators = Cypress.env("locators");
 
-// // por ejemplo hacer clic en el button login 
-// clickLoginButton() {return getLocator().click()}
+class ProductPage extends HomePage {
 
-// // por ejemplo escribir en el campo username 
-// typeInputUsername(username) {return getLocator().type(username)}
-// // tip se puede colocar un valor por defecto tal que si la funcion se llama vacia
-// // toma ese valor para el caso
-// typeInputUsername(username = "Carlos") {return getLocator().type(username)}
+  getProductTitle = () => cy.get(locators.classProductTitle);
+  getProductPrice = () => cy.get(locators.classProductPrice);
+  getPorductDescription = () => cy.get(locators.idProductDescription);
+  getProductImage = () => cy.get(locators.classProductImage);
+  getAddToCartButton = () => cy.get(locators.classAddToCartButton);
+  
+  clickAddToCart(){
+    this.getAddToCartButton().click();
+  }
+  getProductTitleText() {
+    return this.getProductTitle().invoke("text");
+  }
+  getProductPriceText() {
+    return this.getProductPrice().invoke("text");
+  }
+  getProductDescriptionText() {
+    return this.getPorductDescription().invoke("text");
+  }
+  
+  verifyProducttitle(expectedTitle) { 
+    this.getProductTitle().should("contain.text", expectedTitle);
+  }
+  verifyProductPrice(expectedPrice) { 
+    this.getProductPrice().should("contain.text", expectedPrice);
+  }
+  verifyProductImageIsVisible(){
+    this.getProductImage().should("be.visible");
+  }
+  verifyAddToCartButtonIsVisible() {
+    this.getAddToCartButton().should("be.visible").and("contain.text", "Add to cart");
+  }
+  
+  handleAddToCartAlert() {
+    cy.on("window:alert", (str) => {
+      expect(str).to.equal("Product added.");
+    }).as("alert");
+    cy.wait("@alert"); 
+  }
+}
 
-// // para usar los fixture pageLocators,expectedData,laptopsData,monitorsData,phonesData
-// // se usa la expresión en cualquier pagina en cualquier ambito
-// Cypress.env('fixture').nameVariable 
-
-// // Se usa estandar comillas dobles siempre primero y posteriormente a lo interno comillas simples según se requiera
+export default ProductPage;
