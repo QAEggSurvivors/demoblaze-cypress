@@ -31,5 +31,11 @@
   "cssCloseOrderModalButton": "#orderModal .btn-secondary[data-dismiss='modal']",
   "classSweetAlert": ".sweet-alert",
   "classSweetAlertTitle": ".sweet-alert h2",
-  "classConfirmButton": ".confirm"
+  "classConfirmButton": ".confirm",
+  "classProductTitle": ".name",
+  "classProductPrice": ".price-container",
+  "idPriceProductDescription":  "#more-information p",
+  "classProductImage": ".product-image",
+  "classAddToCartButton": ".btn-success"
 }
+
