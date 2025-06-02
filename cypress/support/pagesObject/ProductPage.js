@@ -33,7 +33,7 @@ class ProductPage extends HomePage {
     this.getProductImage().should("be.visible");
   }
   verifyAddToCartButtonIsVisible() {
-    this.getAddToCartButton().should("be.visible")and("contain.text", "Add to cart");
+    this.getAddToCartButton().should("be.visible").and("contain.text", "Add to cart");
   }
   
   handleAddToCartAlert() {
