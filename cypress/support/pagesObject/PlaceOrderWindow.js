@@ -2,10 +2,7 @@ import HomePage from './HomePage';
 
 const locators = Cypress.env("locators");
 
-class PageOrderWindow extends HomePage { 
-
-  getOrderModal = () => cy.get(locators.idOrderModal);
-  getOrderModalLabel = () => cy.get(locators.idOrderModalLabel);
+class PlaceOrderWindow extends HomePage { 
   getNameInput = () => cy.get(locators.idNameInput);
   getCountryInput = () => cy.get(locators.idCountryInput);
   getCityInput = () => cy.get(locators.idCityInput);
@@ -14,10 +11,7 @@ class PageOrderWindow extends HomePage {
   getYearInput = () => cy.get(locators.idYearInput);
   getPurchaseButton = () => cy.get(locators.cssPurchaseButton);
   getCloseOrderModalButton = () => cy.get(locators.cssCloseOrderModalButton);
-  getSweetAlert = () => cy.get(locators.classSweetAlert);
-  getSweetAlertTitle = () => cy.get(locators.classSweetAlertTitle);
   getConfirmButton = () => cy.get(locators.classConfirmButton);
-
 
   typeName(name) {
     this.getNameInput().type(name);
@@ -54,16 +48,6 @@ class PageOrderWindow extends HomePage {
     this.typeMonth(month);
     this.typeYear(year);
   }
-  verifyOrderModalIsVisible() {
-    this.getOrderModal().should("be.visible");
-    this.getOrderModalLabel().should("contain.text", "Place order");
-  }
-  verifyPurchaseSuccessMessage(expectedMessage = "Thank you for your purchase!") {
-    this.getSweetAlertTitle().should("have.text", expectedMessage);
-  }
-  verifySweetAlertIsVisible() {
-    this.getSweetAlert().should("be.visible");
-  }
 }
 
-export default PageOrderWindow;
+export default PlaceOrderWindow;
