@@ -13,6 +13,17 @@ class LoginWindow extends HomePage {
     typePassword(password) {
         this.getPasswordInput().type(password);
     }
+
+    clickLoginSubmitButton() {
+        this.getLoginSubmitButton().click();
+    }
+
+    fillLoginForm(username, password) {
+        this.typeUsername(username);
+        this.typePassword(password);
+        this.clickLoginSubmitButton();
+    }
+
 }
 
 export default LoginWindow;
