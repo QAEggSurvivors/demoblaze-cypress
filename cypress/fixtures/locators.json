@@ -36,6 +36,9 @@
   "classProductPrice": ".price-container",
   "idPriceProductDescription":  "#more-information p",
   "classProductImage": ".product-image",
-  "classAddToCartButton": ".btn-success"
+  "classAddToCartButton": ".btn-success",
+  "idLoginUsername": "#loginusername",
+  "idLoginPassword": "#loginpassword",
+  "idLoginSubmit": "#logInModal .btn.btn-primary"
 }
 
