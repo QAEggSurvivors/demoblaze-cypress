@@ -23,6 +23,11 @@
   "classProductPrice": ".price-container",
   "idPriceProductDescription":  "#more-information p",
   "classProductImage": ".product-image",
-  "classAddToCartButton": ".btn-success"
+  "classAddToCartButton": ".btn-success",
+  "cssCardImages": ".card-img-top.img-fluid",
+  "cssCardTitles": ".card-title .hrefch",
+  "cssCardPrices": ".card-block h5",
+  "cssCardDescriptions": ".card-text"
+
 }
 
