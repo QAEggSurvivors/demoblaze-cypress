@@ -1,5 +1,7 @@
 # Demoblaze Cypress Test Automation 🧪
 
+![Demoblaze Logo](assets/demoblaze-logo.png)
+
 A complete test automation framework for the [Demoblaze](https://www.demoblaze.com/) e-commerce website using Cypress, Cucumber, and Page Object Model pattern.
 
 ## 🎯 Project Overview
