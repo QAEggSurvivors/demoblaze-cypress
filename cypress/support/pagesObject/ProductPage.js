@@ -6,6 +6,7 @@ class ProductPage extends HomePage {
 
   getProductTitle = () => cy.get(locators.classProductTitle);
   getProductPrice = () => cy.get(locators.classProductPrice);
+
   getProductDescription = () => cy.get(locators.idProductDescription);
   getProductImage = () => cy.get(locators.classProductImage);
   getAddToCartButton = () => cy.get(locators.classAddToCartButton);
@@ -20,6 +21,7 @@ class ProductPage extends HomePage {
     return this.getProductPrice().invoke("text");
   }
   getProductDescriptionText() {
+
     return this.getProductDescription().invoke("text");
   }
 }
