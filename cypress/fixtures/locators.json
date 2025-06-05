@@ -39,6 +39,6 @@
   "classAddToCartButton": ".btn-success",
   "idLoginUsername": "#loginusername",
   "idLoginPassword": "#loginpassword",
-  "idLoginSubmit": "#logInModal .btn.btn-primary"
+  "cssLoginSubmit": "#logInModal .btn.btn-primary"
 }
 
