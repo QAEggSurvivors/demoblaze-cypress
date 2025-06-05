@@ -37,6 +37,11 @@
   "idPriceProductDescription":  "#more-information p",
   "classProductImage": ".product-image",
   "classAddToCartButton": ".btn-success",
+  "cssCardImages": ".card-img-top.img-fluid",
+  "cssCardTitles": ".card-title .hrefch",
+  "cssCardPrices": ".card-block h5",
+  "cssCardDescriptions": ".card-text"
+  "classAddToCartButton": ".btn-success"
   "idLoginUsername": "#loginusername",
   "idLoginPassword": "#loginpassword",
   "cssLoginSubmit": "#logInModal .btn.btn-primary"
