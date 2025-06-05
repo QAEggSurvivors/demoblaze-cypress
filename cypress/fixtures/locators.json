@@ -42,5 +42,8 @@
   "cssCardPrices": ".card-block h5",
   "cssCardDescriptions": ".card-text"
   "classAddToCartButton": ".btn-success"
+  "idLoginUsername": "#loginusername",
+  "idLoginPassword": "#loginpassword",
+  "cssLoginSubmit": "#logInModal .btn.btn-primary"
 }
 
