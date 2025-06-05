@@ -1,6 +1,6 @@
 import HomePage from './HomePage';
 
-const locators = Cypress.env("locators");
+const locators = require('../support/locators.js');
 
 class ProductPage extends HomePage {
 
