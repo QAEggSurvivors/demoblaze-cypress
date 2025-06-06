@@ -5,8 +5,7 @@ import {
 
 import HomePage from "./HomePage";
 
-// const LOCATORS = Cypress.env("locators")
-const LOCATORS = require("../../support/locators");
+const LOCATORS = require("../locators");
 
 class CommandsUtilsPage extends HomePage {
     getAlias = (alias) => {
@@ -20,6 +19,21 @@ class CommandsUtilsPage extends HomePage {
         ];
         const FOUND = ALL_PRODUCTS.find(product => product.name === productName);
         return cy.wrap(FOUND);
+    };
+    getProductTitleOnCard = () => {
+        return cy.get(LOCATORS.cssTitleOncard)
+            .invoke('text')
+            .then(text => text.trim());
+    };
+    getProductPriceOnCard = () => {
+        return cy.get(LOCATORS.cssPriceOncard)
+            .invoke('text')
+            .then(text => text.trim());
+    };
+    getProductDescriptionOnCard = () => {
+        return cy.get(LOCATORS.classProductDescriptionOnCard)
+            .invoke('text')
+            .then(text => text.trim());
     };
     getProductTitleOnProd = () => {
         return cy.get(LOCATORS.classProductTitleOnProd)
