@@ -7,8 +7,9 @@ cypress/support/pagesObject/*.js @Frantisekt @emzima24
 cypress/integration/**/*.js @Frantisekt @emzima24
 
 # QA Lead (Duquemore)
-cypress/fixture/*.json @Duquemore
+cypress/fixtures/*.json @Duquemore
 cypress/integration/*.feature @Duquemore
+cypress/support/locators.js @Duquemore
 
 # Project Manager (Duquemore, SoyEdwinCabrera)
 cypress.json @Duquemore @SoyEdwinCabrera
