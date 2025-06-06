@@ -1,6 +1,6 @@
 Feature: Create product data files (names, price and description)
 
-  #  EVERYTHING IS COMMENTED OUT BECAUSE THE SKIP OR IGNORE TAGS DON'T WORK.
+   EVERYTHING IS COMMENTED OUT BECAUSE THE SKIP OR IGNORE TAGS DON'T WORK.
   # Scenario Outline: AS A member of the QA team, I WANT to generate product information for the page according to the category SO THAT use in testing.
   #   Given I open the "https://www.demoblaze.com" website
   #   When I select "<the_category_name>" category
@@ -50,9 +50,9 @@ Feature: Create product data files (names, price and description)
   #     | the_category_name | product_two       |
   #     | Phones            | Samsung galaxy s7 |
 
-  # Still under review, works but needs improvements.
+  # # Still under review, works but needs improvements.
   # Scenario: Select a category and multiple random products
   #   Given I open the "https://www.demoblaze.com" website
-  #   When I add between "2" and "2" products randomly to the cart
+  #   When I add between "2" and "14" products randomly to the cart
   #   And I click on the cart button
   #   Then I should see the products in the car
