@@ -109,9 +109,9 @@ export const saveCategoryProducts = (categoryName) => {
           const $CARD = Cypress.$(card);
           return {
             category: categoryName,
-            name: $CARD.find(LOCATORS.classProductTitles).text().trim(),
-            price: $CARD.find(LOCATORS.cssPriceNumber).text().trim(),
-            description: $CARD.find(LOCATORS.cssDescription).text().trim(),
+            name: $CARD.find(LOCATORS.cssTitleOncard).text().trim(),
+            price: $CARD.find(LOCATORS.cssPriceOncard).text().trim(),
+            description: $CARD.find(LOCATORS.classProductDescriptionOnCard).text().trim(),
           };
         });
 
