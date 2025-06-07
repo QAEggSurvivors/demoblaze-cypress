@@ -74,11 +74,20 @@ class HomePage {
   clickMonitorsCategory() {
     this.getMonitorsCategory().click();
   }
-  clickProductImages(number) {
+  clickProductImage(number) {
     this.getProductImages().eq(number).click();
   }
-  clickProductTitles(number) {
+  clickProductTitle(number) {
     this.getProductTitles().eq(number).click();
+  }
+  getProductTitle(number) {
+    this.getProductTitles().eq(number).invoke("text");
+  }
+  getProductPrice(number) {
+    this.getProductPrices().eq(number).invoke("text");
+  }
+  getProductDescription(number) {
+    this.getProductDescriptions().eq(number).invoke("text");
   }
   clickPreviousButton() {
     this.getPreviousButton().click();
