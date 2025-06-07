@@ -21,7 +21,6 @@ beforeEach(() => {
   cy.ProductPage = new ProductPage();
   cy.PurchaseWindow = new PurchaseWindow();
   cy.SignupWindow = new SignupWindow();
-  cy.fixture("locators").then((data) => Cypress.env("locators", data));
 });
 
 Cypress.on("uncaught:exception", (err, runnable) => {
