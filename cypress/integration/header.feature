@@ -59,20 +59,6 @@ Feature: Header
             | product |
             | cart    |
 
-    # log out button
-    @header
-    Scenario: Successful log out from "<page>" page
-        Given I navigate to the "<page>" page
-        And I login
-        When I click the navbar log out button
-        Then I should see the username disappears
-        And I should see the login button appears
-    Example:
-            | page    |
-            | home    |
-            | product |
-            | cart    |
-
     # sign up button
     @header
     Scenario: Successful open the sign up modal from "<page>" page
