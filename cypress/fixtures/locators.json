@@ -41,9 +41,6 @@
   "cssCardTitles": ".card-title .hrefch",
   "cssCardPrices": ".card-block h5",
   "cssCardDescriptions": ".card-text",
-  "idLoginUsername": "#loginusername",
-  "idLoginPassword": "#loginpassword",
-  "cssLoginSubmit": "#logInModal .btn.btn-primary",
   "_commentFinalProperty": "This is the last property, every new locator must be before this _commentFinalProperty"
 }
 
