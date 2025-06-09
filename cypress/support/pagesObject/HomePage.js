@@ -1,26 +1,26 @@
-const locators = Cypress.env("locators");
+const LOCATORS = require('../locators');
 
 class HomePage {
-  getLogo = () => cy.get(locators.idLinkLogo);
-  getHome = () => cy.get(locators.cssLinkHome);
-  getContact = () => cy.get(locators.cssLinkContact);
-  getAboutus = () => cy.get(locators.cssLinkAboutus);
-  getCart = () => cy.get(locators.idLinkCart);
-  getLogin = () => cy.get(locators.idLinkLogin);
-  getSignup = () => cy.get(locators.idLinkSignup);
-  getLogout = () => cy.get(locators.idLinkLogout);
-  getUserName = () => cy.get(locators.idLinkUserName);
-  getCarouselLeftArrow = () => cy.get(locators.classLinkCarouselLeftArrow);
-  getCarouselRightArrow = () => cy.get(locators.classLinkCarouselRightArrow);
-  getCarouselImages = () => cy.get(locators.cssCarouselImages);
-  getCarouselPositionIndicators = () => cy.get(locators.cssCarouselPositionIndicators);
-  getPhonesCategory = () => cy.get(locators.cssPhonesCategory);
-  getLaptopsCategory = () => cy.get(locators.cssLaptopsCategory);
-  getMonitorsCategory = () => cy.get(locators.cssMonitorsCategory);
-  getProductImages = () => cy.get(locators.classProductImages);
-  getProductTitles = () => cy.get(locators.classProductTitles);
-  getPreviousButton = () => cy.get(locators.idPreviousButton);
-  getNextButton = () => cy.get(locators.idNextButton);
+  getLogo = () => cy.get(LOCATORS.idLinkLogo);
+  getHome = () => cy.get(LOCATORS.cssLinkHome);
+  getContact = () => cy.get(LOCATORS.cssLinkContact);
+  getAboutus = () => cy.get(LOCATORS.cssLinkAboutus);
+  getCart = () => cy.get(LOCATORS.idLinkCart);
+  getLogin = () => cy.get(LOCATORS.idLinkLogin);
+  getSignup = () => cy.get(LOCATORS.idLinkSignup);
+  getLogout = () => cy.get(LOCATORS.idLinkLogout);
+  getUserName = () => cy.get(LOCATORS.idLinkUserName);
+  getCarouselLeftArrow = () => cy.get(LOCATORS.classLinkCarouselLeftArrow);
+  getCarouselRightArrow = () => cy.get(LOCATORS.classLinkCarouselRightArrow);
+  getCarouselImages = () => cy.get(LOCATORS.cssCarouselImages);
+  getCarouselPositionIndicators = () => cy.get(LOCATORS.cssCarouselPositionIndicators);
+  getPhonesCategory = () => cy.get(LOCATORS.cssPhonesCategory);
+  getLaptopsCategory = () => cy.get(LOCATORS.cssLaptopsCategory);
+  getMonitorsCategory = () => cy.get(LOCATORS.cssMonitorsCategory);
+  getProductImages = () => cy.get(LOCATORS.classProductImages);
+  getProductTitles = () => cy.get(LOCATORS.classProductTitles);
+  getPreviousButton = () => cy.get(LOCATORS.idPreviousButton);
+  getNextButton = () => cy.get(LOCATORS.idNextButton);
   
   goMainUrl = () => cy.visit("/");
   getUrl = () => cy.url();
@@ -74,11 +74,20 @@ class HomePage {
   clickMonitorsCategory() {
     this.getMonitorsCategory().click();
   }
-  clickProductImages(number) {
+  clickProductImage(number) {
     this.getProductImages().eq(number).click();
   }
-  clickProductTitles(number) {
+  clickProductTitle(number) {
     this.getProductTitles().eq(number).click();
+  }
+  getProductTitle(number) {
+    this.getProductTitles().eq(number).invoke("text");
+  }
+  getProductPrice(number) {
+    this.getProductPrices().eq(number).invoke("text");
+  }
+  getProductDescription(number) {
+    this.getProductDescriptions().eq(number).invoke("text");
   }
   clickPreviousButton() {
     this.getPreviousButton().click();
