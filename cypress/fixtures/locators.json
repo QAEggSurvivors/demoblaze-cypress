@@ -37,8 +37,13 @@
   "idPriceProductDescription":  "#more-information p",
   "classProductImage": ".product-image",
   "classAddToCartButton": ".btn-success",
+  "cssCardImages": ".card-img-top.img-fluid",
+  "cssCardTitles": ".card-title .hrefch",
+  "cssCardPrices": ".card-block h5",
+  "cssCardDescriptions": ".card-text",
   "idLoginUsername": "#loginusername",
   "idLoginPassword": "#loginpassword",
-  "cssLoginSubmit": "#logInModal .btn.btn-primary"
+  "cssLoginSubmit": "#logInModal .btn.btn-primary",
+  "_commentFinalProperty": "This is the last property, every new locator must be before this _commentFinalProperty"
 }
 
