@@ -64,5 +64,10 @@ module.exports = {
   idOrderModalLabel: "#orderModalLabel",
   idPreviousButton : "#prev2",
   idYearInput: "#year",
-  selAlertWindow: "window:alert"
+  selAlertWindow: "window:alert",
+  _LoginWindowPagesObject: "---------------",
+  idLoginUsername: "#loginusername",
+  idLoginPassword: "#loginpassword",
+  cssLoginSubmit: "#logInModal .btn.btn-primary",
+  _EndOfFile: "----------------------------"
 }
