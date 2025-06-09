@@ -18,7 +18,7 @@ module.exports = {
   nextButtonId: "#next2",
   phonesCategoryCss: "[onclick=\"byCat('phone')\"]",
   previousButtonId: "#prev2",
-  productDescriptionCss: ".card p",
+  productDescriptionsCss: ".card p",
   productImagesCss: ".card > a",
   productPricesCss: ".card div h5",
   productTitlesClass: ".hrefch",
