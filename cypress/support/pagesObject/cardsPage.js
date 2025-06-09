@@ -1,6 +1,13 @@
-import HomePage from "./HomePage.js";
+import HomePage from "./HomePage";
 
-class CardsPage extends HomePage {
+const LOCATORS = require('../locators');
+
+class CardsPage extends HomePage { 
+  getCardImages = () => cy.get(LOCATORS.cardImagesCss);
+  getCardTitles = () => cy.get(LOCATORS.cardTitlesCss);
+  getCardPrices = () => cy.get(LOCATORS.cardPricesCss);
+  getCardDescriptions = () => cy.get(LOCATORS.cardDescriptionsCss);
+  
   clickCardImage(number) {
     this.clickProductImage(number);
   }
