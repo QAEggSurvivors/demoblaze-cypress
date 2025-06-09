@@ -1,15 +1,15 @@
 import HomePage from './HomePage';
 
-const locators = require('../support/locators.js');
+const LOCATORS = require('../locators');
 
 class ProductPage extends HomePage {
 
-  getProductTitle = () => cy.get(locators.classProductTitle);
-  getProductPrice = () => cy.get(locators.classProductPrice);
+  getProductTitle = () => cy.get(LOCATORS.productTitleClass);
+  getProductPrice = () => cy.get(LOCATORS.productPriceOnProdClass);
 
-  getProductDescription = () => cy.get(locators.idProductDescription);
-  getProductImage = () => cy.get(locators.classProductImage);
-  getAddToCartButton = () => cy.get(locators.classAddToCartButton);
+  getProductDescription = () => cy.get(LOCATORS.productDescriptionOnProdCss);
+  getProductImage = () => cy.get(LOCATORS.productImagesCss);
+  getAddToCartButton = () => cy.get(LOCATORS.addToCartButtonClass);
   
   clickAddToCart(){
     this.getAddToCartButton().click();
