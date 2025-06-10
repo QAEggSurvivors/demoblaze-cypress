@@ -13,7 +13,6 @@ Feature: Cards
             | second  | image | https://demoblaze.com/prod.html?idp_=2 |
             | third   | image | https://demoblaze.com/prod.html?idp_=3 |
 
-Feature: Cards
     @cards
     Scenario: Successful validate product information
         Given I navigate to the home page
