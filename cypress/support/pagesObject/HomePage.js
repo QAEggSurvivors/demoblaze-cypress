@@ -12,7 +12,7 @@ class HomePage {
   getUserName = () => cy.get(LOCATORS.linkUserNameId);
   getCarouselLeftArrow = () => cy.get(LOCATORS.linkCarouselLeftArrowClass);
   getCarouselRightArrow = () => cy.get(LOCATORS.linkCarouselRightArrowClass);
-  getCarouselImages = () => cy.get(LOCATORS.carouselImagesCss);
+  getCarouselCurrentImage = () => cy.get(LOCATORS.carouselCurrentImageCss);
   getCarouselPositionIndicators = () => cy.get(LOCATORS.carouselPositionIndicatorsCss);
   getPhonesCategory = () => cy.get(LOCATORS.phonesCategoryCss);
   getLaptopsCategory = () => cy.get(LOCATORS.laptopsCategoryCss);
@@ -61,8 +61,8 @@ class HomePage {
   clickCarouselRightArrow() {
     this.getCarouselRightArrow().click();
   }
-  getCarouselImage(number) {
-    return this.getCarouselImages().eq(number);
+  getCarouselImage() {
+    return this.getCarouselCurrentImage().invoke('attr', 'alt');
   }
   clickCarouselPositionIndicators(number) {
     this.getCarouselPositionIndicators().eq(number).click();
