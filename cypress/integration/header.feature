@@ -1,7 +1,7 @@
 Feature: Header
     # brand logo
     @header
-    Scenario: Successful navigate to home with brand logo from "<page>" page
+    Scenario: Navigate to home with brand logo from "<page>" page
         Given I navigate to the "<page>" page
         When I click the navbar brand logo
         Then I should be redirected to the home page
@@ -13,7 +13,7 @@ Feature: Header
 
     # home button
     @header
-    Scenario: Successful navigate to home with home button from "<page>" page
+    Scenario: Navigate to home with home button from "<page>" page
         Given I navigate to the "<page>" page
         When I click the navbar home button
         Then I should be redirected to the home page
@@ -25,7 +25,7 @@ Feature: Header
 
     # contact button
     @header
-    Scenario: Successful open contact modal with contact button from "<page>" page
+    Scenario: Open contact modal with contact button from "<page>" page
         Given I navigate to the "<page>" page
         When I click the navbar contact button
         Then I should see the contact modal appears
@@ -37,7 +37,7 @@ Feature: Header
 
     # cart button
     @header
-    Scenario: Successful navigate to cart page with cart button from "<page>" page
+    Scenario: Navigate to cart page with cart button from "<page>" page
         Given I navigate to the "<page>" page
         When I click the navbar cart button
         Then "<validation>"
@@ -49,7 +49,7 @@ Feature: Header
 
     # login button
     @header
-    Scenario: Successful open the login modal from "<page>" page
+    Scenario: Open the login modal from "<page>" page
         Given I navigate to the "<page>" page
         When I click the navbar login button
         Then I should see the login modal appears
@@ -61,7 +61,7 @@ Feature: Header
 
     # sign up button
     @header
-    Scenario: Successful open the sign up modal from "<page>" page
+    Scenario: Open the sign up modal from "<page>" page
         Given I navigate to the "<page>" page
         When I click the navbar sign button
         Then I should see the sign up modal appears
