@@ -27,7 +27,7 @@ class CartPage extends HomePage {
     });
   };
   
-  verifyCarttotalPrice = (expectedTotal) => {
+  verifyCartTotalPrice = (expectedTotal) => {
     this.getCartTotalPrice().should('equal', expectedTotal.toString());
   };
 }
