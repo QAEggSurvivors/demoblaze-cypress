@@ -1,29 +1,20 @@
-import HomePage from "./HomePage";
+import HomePage from "./HomePage.js";
 
-const locators = require('../support/locators.js');
-
-class CardsPage extends HomePage { 
-  getLogo = () => cy.get(locators.idLinkLogo);
-  getCardImages = () => cy.get(locators.cssCardImages);
-  getCardTitles = () => cy.get(locators.cssCardTitles);
-  getCardPrices = () => cy.get(locators.cssCardPrices);
-  getCardDescriptions = () => cy.get(locators.cssCardDescriptions);
-  
+class CardsPage extends HomePage {
   clickCardImage(number) {
-    this.getCardImages().eq(number).click();
+    this.clickProductImage(number);
   }
   clickCardTitle(number) {
-    this.getCardTitles().eq(number).click();
+    this.clickProductTitle(number);
   }
-  
-  getCardTitleText(number) { 
-    return this.getCardTitles().eq(number).invoke("text");
+  getCardTitleText(number) {
+    return this.getProductTitle(number);
   }
   getCardPriceText(number) {
-    return this.getCardPrices().eq(number).invoke("text");
+    return this.getProductPrice(number);
   }
   getCardDescriptionText(number) {
-    return this.getCardDescriptions().eq(number).invoke("text");
+    return this.getProductDescription(number);
   }
 }
 
