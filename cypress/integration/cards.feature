@@ -1,6 +1,6 @@
 Feature: Cards
     @cards
-    Scenario: Successful go to Product Page
+    Scenario: Go to Product Page
         Given I navigate to the home page
         When I click the "<product>" product "<link>"
         Then I should be redirected to url "<url>"
@@ -14,7 +14,7 @@ Feature: Cards
             | third   | image | https://demoblaze.com/prod.html?idp_=3 |
 
     @cards
-    Scenario: Successful validate product information
+    Scenario: Validate product information
         Given I navigate to the home page
         When I see the "<product>"
         Then I should see that the "<section>" is "<info>"
