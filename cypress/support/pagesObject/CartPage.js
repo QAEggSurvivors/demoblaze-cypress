@@ -1,6 +1,6 @@
 import HomePage from "./HomePage";
 
-const LOCATORS = require('./HomePage')
+const LOCATORS = require('../locators')
 
 class CartPage extends HomePage {
   getCartRows = () => cy.get(LOCATORS.productRowOnCartCss);
