@@ -1,6 +1,6 @@
 module.exports = {
   _firstHomePage: "----------------------------------------------",
-  carouselImagesCss: ".carousel-item.active img",
+  carouselCurrentImageCss: ".carousel-item.active img",
   carouselPositionIndicatorsCss: "[data-target='#carouselExampleIndicators']",
   laptopsCategoryCss: "[onclick=\"byCat('notebook')\"]",
   linkAboutusCss: "[data-target='#videoModal']",
