@@ -61,7 +61,7 @@ class HomePage {
   clickCarouselRightArrow() {
     this.getCarouselRightArrow().click();
   }
-  getCarouselImage() {
+  getCarouselImageAlt() {
     return this.getCarouselCurrentImage().invoke('attr', 'alt');
   }
   clickCarouselPositionIndicators(number) {
