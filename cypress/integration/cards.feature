@@ -15,7 +15,7 @@ Feature: Cards
 
 Feature: Cards
     @cards
-    Scenario: Successful go to Product Page
+    Scenario: Successful validate product information
         Given I navigate to the home page
         When I see the "<product>"
         Then I should see that the "<section>" is "<info>"
