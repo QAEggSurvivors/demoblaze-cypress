@@ -83,13 +83,13 @@ class HomePage {
     this.getProductTitles().eq(number).click();
   }
   getProductTitle(number) {
-    this.getProductTitles().eq(number).invoke("text");
+    return this.getProductTitles().eq(number).invoke("text");
   }
   getProductPrice(number) {
-    this.getProductPrices().eq(number).invoke("text");
+    return this.getProductPrices().eq(number).invoke("text");
   }
   getProductDescription(number) {
-    this.getProductDescriptions().eq(number).invoke("text");
+    return this.getProductDescriptions().eq(number).invoke("text");
   }
   clickPreviousButton() {
     this.getPreviousButton().click();
