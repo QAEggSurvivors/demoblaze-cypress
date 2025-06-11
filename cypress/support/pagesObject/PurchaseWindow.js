@@ -1,26 +1,19 @@
-import HomePage from './HomePage'; 
+import ProductPage from './ProductPage'; 
 
-const locators = Cypress.env("../locators");
+const LOCATORS = Cypress.env("../locators");
 
-class PurchaseWindow extends HomePage { 
-  getProductByName = (productName) => cy.get(locators.productTitlesClass).contains(productName);
-  getAddToCartButton = () => cy.get(locators.classAddToCartButton);
-  getCartLink = () => cy.get(locators.linkCartId);
-  getPlaceOrderButtonOnCart = () => cy.get(locators.cssPlaceOrderButtonOnCart);
-  getConfirmButton = () => cy.get(locators.classConfirmButton);
+class PurchaseWindow extends ProductPage { 
+  getPlaceOrderButton = () => cy.get(LOCATORS.cssPlaceOrderButtonOnCart);
+  getConfirmButton = () => cy.get(LOCATORS.classConfirmButton);
 
-  selectProductByName(productName) {
-    this.getProductByName(productName).click();
-  }
-  addToCart() {
-    this.getAddToCartButton().click();
-  }
   goToCart() {
-    this.getCartLink().click();
+    this.clickCart();
   }
-  clickPlaceOrderButtonOnCart() {
-    this.getPlaceOrderButtonOnCart().click();
+
+  clickPlaceOrderButton() {
+    this.getPlaceOrderButton().click();
   }
+
   clickConfirmButton() {
     this.getConfirmButton().click({ force: true }); 
   }
