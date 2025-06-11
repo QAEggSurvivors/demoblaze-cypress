@@ -71,5 +71,6 @@ module.exports = {
   idLoginUsername: "#loginusername",
   idLoginPassword: "#loginpassword",
   cssLoginSubmit: "#logInModal .btn.btn-primary",
+  cssPlaceOrderButtonOnCart: ".btn-success[data-toggle='modal']",
   _EndOfFile: "----------------------------"
 }
