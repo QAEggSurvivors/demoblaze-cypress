@@ -1,8 +1,8 @@
-import cardsPage from './cardsPage';
+import HomePage from "./HomePage";
 
-const LOCATORS = Cypress.env("../locators");
+const LOCATORS = require("../locators");
 
-class LoginWindow extends CardsPage {
+class LoginWindow extends HomePage {
 
     getUsernameInput = () => cy.get(LOCATORS.LoginUsernameId);
     getPasswordInput = () => cy.get(LOCATORS.LoginPasswordId);
@@ -27,26 +27,21 @@ class LoginWindow extends CardsPage {
         this.clickLoginSubmitButton();
     }
 
-    validateWelcomeMessageVisible(username) {
-        this.getUserName().should("contain.text", `Welcome ${username}`);
+    getWelcomeMessageText() {
+        return this.getUserName().invoke("text");
     }
 
-    validateLoginButtonVisible() {
-        this.getLogin().should("be.visible");
+    isLogoutButtonVisible() {
+        return this.getLogout();
     }
 
-    validateLogoutButtonVisible() {
-        this.getLogout().should("be.visible");
+    isLoginButtonVisible() {
+        return this.getLogin();
     }
 
-    validateLogoutButtonNotVisible() {
-        this.getLogout().should("not.exist");
+    isWelcomeMessageVisible() {
+        return this.getUserName(); 
     }
-
-    validateWelcomeMessageNotVisible() {
-        this.getUserName().should("not.exist");
-    }
-
 }
 
 export default LoginWindow;
