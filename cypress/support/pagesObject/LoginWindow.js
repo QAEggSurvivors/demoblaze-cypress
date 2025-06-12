@@ -1,27 +1,50 @@
-import HomePage from './HomePage';
+import cardsPage from './cardsPage';
 
-const locators = Cypress.env("locators");
+const LOCATORS = Cypress.env("../locators");
 
-class LoginWindow extends HomePage {
-    getUsernameInput = () => cy.get(locators.idLoginUsername);
-    getPasswordInput = () => cy.get(locators.idLoginPassword);
-    getLoginSubmitButton = () => cy.get(locators.idLoginSubmit);
+class LoginWindow extends CardsPage {
+
+    getUsernameInput = () => cy.get(LOCATORS.LoginUsernameId);
+    getPasswordInput = () => cy.get(LOCATORS.LoginPasswordId);
+    getLoginSubmitButton = () => cy.get(LOCATORS.LoginSubmitCss);
+
 
     typeUsername(username) {
-        this.getUsernameInput().type(username);
+        this.getUsernameInput().clear().type(username);
     }
+
     typePassword(password) {
-        this.getPasswordInput().type(password);
+        this.getPasswordInput().clear().type(password);
     }
 
     clickLoginSubmitButton() {
         this.getLoginSubmitButton().click();
     }
 
-    fillLoginForm(username, password) {
+    loginWithCredentials(username, password) {
         this.typeUsername(username);
         this.typePassword(password);
         this.clickLoginSubmitButton();
+    }
+
+    validateWelcomeMessageVisible(username) {
+        this.getUserName().should("contain.text", `Welcome ${username}`);
+    }
+
+    validateLoginButtonVisible() {
+        this.getLogin().should("be.visible");
+    }
+
+    validateLogoutButtonVisible() {
+        this.getLogout().should("be.visible");
+    }
+
+    validateLogoutButtonNotVisible() {
+        this.getLogout().should("not.exist");
+    }
+
+    validateWelcomeMessageNotVisible() {
+        this.getUserName().should("not.exist");
     }
 
 }
