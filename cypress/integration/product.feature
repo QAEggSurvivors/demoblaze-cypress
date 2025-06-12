@@ -11,10 +11,10 @@ As a user, I want to interact with the products on the website
     @add @regression
         Scenario: Add product to the cart
             Given I navigate to the home page
-            When I click on a product
-            And I add the product to the cart
-            Then I should see the product in the cart
-
+            When I click on a product image or title
+            And I click on the "Add to cart" button
+            Then I should see alert with the message "Product added"
+  
     @image @regression
         Scenario: Verify product image
             Given I navigate to the home page
