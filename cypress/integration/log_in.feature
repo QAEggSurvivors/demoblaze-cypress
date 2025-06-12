@@ -33,7 +33,7 @@ Feature: Login and Logout functionality
         And I leave the "Username" input field empty
         And I type "Password123" in the "Password" input field
         And I click on the "Log in" button in the modal
-        Then I should see a login error message indicating empty fields
+        Then I should see an alert with the message "Please fill out Username and Password"
 
     @login @regression
     Scenario: Attempting login with empty password
