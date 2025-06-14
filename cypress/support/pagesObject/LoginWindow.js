@@ -1,29 +1,47 @@
-import HomePage from './HomePage';
+import HomePage from "./HomePage";
 
-const locators = Cypress.env("locators");
+const LOCATORS = require("../locators");
 
 class LoginWindow extends HomePage {
-    getUsernameInput = () => cy.get(locators.idLoginUsername);
-    getPasswordInput = () => cy.get(locators.idLoginPassword);
-    getLoginSubmitButton = () => cy.get(locators.idLoginSubmit);
+
+    getUsernameInput = () => cy.get(LOCATORS.LoginUsernameId);
+    getPasswordInput = () => cy.get(LOCATORS.LoginPasswordId);
+    getLoginSubmitButton = () => cy.get(LOCATORS.LoginSubmitCss);
+
 
     typeUsername(username) {
-        this.getUsernameInput().type(username);
+        this.getUsernameInput().clear().type(username);
     }
+
     typePassword(password) {
-        this.getPasswordInput().type(password);
+        this.getPasswordInput().clear().type(password);
     }
 
     clickLoginSubmitButton() {
         this.getLoginSubmitButton().click();
     }
 
-    fillLoginForm(username, password) {
+    loginWithCredentials(username, password) {
         this.typeUsername(username);
         this.typePassword(password);
         this.clickLoginSubmitButton();
     }
 
+    getWelcomeMessageText() {
+        return this.getUserName().invoke("text");
+    }
+
+    isLogoutButtonVisible() {
+        return this.getLogout();
+    }
+
+    isLoginButtonVisible() {
+        return this.getLogin();
+    }
+
+    isWelcomeMessageVisible() {
+        return this.getUserName(); 
+    }
 }
 
 export default LoginWindow;
