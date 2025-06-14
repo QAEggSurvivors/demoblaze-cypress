@@ -83,5 +83,14 @@ module.exports = {
   LoginUsernameId: "#loginusername",
   LoginPasswordId: "#loginpassword",
   LoginSubmitCss: "#logInModal .btn.btn-primary",
+<<<<<<< ana
+=======
+  _ContactWindowPagesObject: "---------------",
+  ContactEmailId: "#recipient-email",
+  ContactNameId: "#recipient-name",
+  MessageTextId: "#message-text",
+  ContactSendButtonCss: "#exampleModal .btn.btn-primary",
+  ContactCloseButtonCss: "#exampleModal .btn.btn-secondary",
+>>>>>>> main
   _EndOfFile: "----------------------------"
 }
