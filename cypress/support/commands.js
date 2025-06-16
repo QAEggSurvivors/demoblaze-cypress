@@ -10,22 +10,26 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+// Cypress.Commands.add("login", (email, password) => { ... })
 //
 //
 // -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+// Cypress.Commands.add("drag", { prevSubject: "element"}, (subject, options) => { ... })
 //
 //
 // -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
+// Cypress.Commands.add("dismiss", { prevSubject: "optional"}, (subject, options) => { ... })
 //
 //
 // -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import {
-    getModalName,
-    saveCategoryProducts
+    GET_MODAL_NAME,
+    SAVE_CATEGORY_PRODUCTS,
+    REPEAT_PRODUCTS,
+    DELETE_RECURSIVE,
+    REMOVE_PRODUCTS,
+    ENSURE_REPEATED
 } from "../support/utils";
 
 /**
@@ -85,7 +89,7 @@ Cypress.Commands.add("getAlertMessage", (callback) => {
  * cy.getModalTitle("About us").should("contain", "About Us");
  * 
  * @see waitForModal - Command that ensures modal readiness
- * @see getModalName - Helper function that resolves modal identifiers
+ * @see GET_MODAL_NAME - Helper function that resolves modal identifiers
  * 
  * @remarks
  * - The title element is located using the pattern: #{modalName}ModalLabel
@@ -93,7 +97,7 @@ Cypress.Commands.add("getAlertMessage", (callback) => {
  */
 Cypress.Commands.add("getModalTitle", (modalName) => {
     cy.waitForModal(modalName);
-    return cy.get(`#${getModalName(modalName)}ModalLabel`);
+    return cy.get(`#${GET_MODAL_NAME(modalName)}ModalLabel`);
 });
 
 /**
@@ -121,14 +125,14 @@ Cypress.Commands.add("getModalTitle", (modalName) => {
  * - Checks both CSS classes and transition states
  * - Default timeout of 10 seconds
  * - Requires jQuery ($) to be available in the application
- * - Dependent on getModalName() for selector resolution
+ * - Dependent on GET_MODAL_NAME() for selector resolution
  */
 Cypress.Commands.add("waitForModal", (modalName, action = "show") => {
     return cy.window().then({
         timeout: 10000
     }, (win) => {
         return new Cypress.Promise((resolve) => {
-            const $MODAL = win.$(`#${getModalName(modalName)}Modal`);
+            const $MODAL = win.$(`#${GET_MODAL_NAME(modalName)}Modal`);
 
             if (action === "show") {
                 if ($MODAL.hasClass("show") && !$MODAL.data("_isTransitioning")) {
@@ -180,9 +184,9 @@ Cypress.Commands.add("closeModal", (modalName, position = "footer") => {
     const clickAction = () => {
         if (position === "footer") {
             const BUTTON_CLASS = modalName === "AboutUs" ? ".btn" : ".btn-secondary";
-            return cy.get(`#${getModalName(modalName)}Modal > .modal-dialog > .modal-content > .modal-footer > ${BUTTON_CLASS}`).click();
+            return cy.get(`#${GET_MODAL_NAME(modalName)}Modal > .modal-dialog > .modal-content > .modal-footer > ${BUTTON_CLASS}`).click();
         } else {
-            return cy.get(`#${getModalName(modalName)}Modal > .modal-dialog > .modal-content > .modal-header > .close > span`).click();
+            return cy.get(`#${GET_MODAL_NAME(modalName)}Modal > .modal-dialog > .modal-content > .modal-header > .close > span`).click();
         }
     };
 
@@ -372,43 +376,49 @@ Cypress.Commands.add("clickProductByTitleWithNextButton", (productName, maxPages
 });
 
 /**
- * Selects and adds multiple random products to cart across different categories.
- * - Randomly selects between min and max products from all available categories
- * - Clicks each product using clickProductByNameWithNextButton command
- * - Verifies successful addition with alert message
- * - Tracks all added products in Cypress.env
+ * Selects and adds multiple random products to cart with configurable repetition options.
+ * Randomly selects between min and max products from all available categories (laptops, monitors, phones).
+ * Handles product repetition and tracking of selected products in Cypress environment variables.
  * 
- * @param {number} [min=2] - Minimum number of products to add (default: 2)
- * @param {number} [max=15] - Maximum number of products to add (default: 15)
+ * @param {number} [min=2] - Minimum number of distinct products to add (default: 2)
+ * @param {number} [max=15] - Maximum number of distinct products to add (default: 15)
+ * @param {boolean} [isRepeatProduct=true] - Whether to allow product repetition (default: true)
+ * @param {boolean} [isEnsureRepeated=false] - Whether to ensure specific product repetition (default: false)
+ * @param {string} [titleProduct] - Optional product title to ensure repetition when isEnsureRepeated=true
  * @returns {Cypress.Chainable<void>} Chainable command that resolves when all products are processed
  * 
  * @example
- * Add random 2-15 products (default)
- * cy.clickMultipleProductsByNameWithNextButton();
+ * Add 2-15 random products with possible repetition
+ * cy.clickRandomMultipleProductsWithNextButton();
  * 
  * @example
- * Add exactly 5 random products
- * cy.clickMultipleProductsByNameWithNextButton(5, 5);
+ * Add exactly 5 random products without repetition
+ * cy.clickRandomMultipleProductsWithNextButton(5, 5, false);
  * 
  * @example
- * Add 3-10 random products
- * cy.clickMultipleProductsByNameWithNextButton(3, 10);
+ * Add 3-10 products ensuring "Samsung Galaxy S6" is repeated
+ * cy.clickRandomMultipleProductsWithNextButton(3, 10, true, true, "Samsung Galaxy S6");
  * 
  * @remarks
  * - Uses products from these environment arrays:
- *   - laptopsData
- *   - monitorsData
- *   - phonesData
+ *   - Cypress.env("laptops")
+ *   - Cypress.env("monitors") 
+ *   - Cypress.env("phones")
  * - Stores these references:
- *   - qtyAdded: Number of products added (as alias)
- *   - selectedProductName: Array of product names (in Cypress.env)
+ *   - @qtyAdded: Total quantity of products added (including repeats)
+ *   - selectedProductName: Array of all product names added (in Cypress.env)
+ *   - selectedRepeatedProductName: Array of repeated product names (in Cypress.env)
  * - Requires these dependencies:
- *   - clickProductByNameWithNextButton command
- *   - getAlertMessage command
- *   - HomePage.goMainUrl() method
- * - Verifies each addition with "Product added" alert
+ *   - REPEAT_PRODUCTS helper function
+ *   - ENSURE_REPEATED helper function  
+ *   - HomePage.goMainUrl() navigation method
+ * - Verifies initial product grid contains exactly 9 cards
+ * - Automatically returns to homepage between each product addition
+ * 
+ * @see {@link REPEAT_PRODUCTS} for product repetition logic
+ * @see {@link ENSURE_REPEATED} for enforced repetition validation
  */
-Cypress.Commands.add("clickMultipleProductsByNameWithNextButton", (min = 2, max = 15) => {
+Cypress.Commands.add("clickRandomMultipleProductsWithNextButton", (min = 2, max = 15, isRepeatProduct = true, isEnsureRepeated = false, titleProduct) => {
     const ALL_PRODUCTS = [
         ...Cypress.env("laptops"),
         ...Cypress.env("monitors"),
@@ -416,34 +426,42 @@ Cypress.Commands.add("clickMultipleProductsByNameWithNextButton", (min = 2, max 
     ];
 
     const SELECTED = [];
-    const QTY = Cypress._.random(min, max);
-    const SELECTED_PRODUCTS = Cypress._.sampleSize(ALL_PRODUCTS, QTY);
-    cy.wrap(QTY).as("qtyAdded");
+    let qty = Cypress._.random(min, max);
+    const SELECTED_PRODUCTS = Cypress._.sampleSize(ALL_PRODUCTS, qty);
 
-    cy.wrap(SELECTED_PRODUCTS.length).as("qtyAdded");
+    const REPEATED_PRODUCTS = isRepeatProduct ?
+        Cypress._.sampleSize(SELECTED_PRODUCTS, Math.floor(qty / 2)) : [];
 
     Cypress.env("selectedProductName", []);
+    Cypress.env("selectedRepeatedProductName", []);
+
+    cy.get(".card").should("have.length", 9);
 
     cy.wrap(SELECTED_PRODUCTS).each((product) => {
         const PRODUCT_NAME = product.name;
 
-        cy.clickProductByTitleWithNextButton(PRODUCT_NAME);
-
-        cy.getAlertMessage((msg) => {
-            expect(msg).to.equal("Product added");
-        });
-
-        cy.contains("Add to cart").click();
-        SELECTED.push(PRODUCT_NAME);
-
-        Cypress.env("selectedProductName").push(PRODUCT_NAME);
+        if (REPEATED_PRODUCTS.some(p => p.name === PRODUCT_NAME)) {
+            let qtyRepeat = REPEAT_PRODUCTS(PRODUCT_NAME, 2, 5);
+            for (let i = 0; i < qtyRepeat; i++) {
+                SELECTED.push(PRODUCT_NAME);
+            }
+        } else {
+            REPEAT_PRODUCTS(PRODUCT_NAME);
+            SELECTED.push(PRODUCT_NAME);
+        }
 
         cy.HomePage.goMainUrl();
-
     }).then(() => {
         Cypress.env("selectedProductName", SELECTED);
-    })
-})
+        Cypress.env("selectedRepeatedProductName", REPEATED_PRODUCTS);
+        cy.wrap(SELECTED.length).as("qtyAdded");
+
+        if (isEnsureRepeated) {
+            cy.get("#cartur").click();
+            return ENSURE_REPEATED(titleProduct);
+        }
+    });
+});
 
 /**
  * Clicks on a specified category or selects a random valid category if the specified one is invalid.
@@ -476,5 +494,188 @@ Cypress.Commands.add("clickRandomCategory", (categoryText) => {
     cy.CommandsUtilsPage.putAlias(categoryText, "selectedCategory");
     return cy.CommandsUtilsPage.clickCategoryName(categoryText);
 });
-////////////////////////////////////////////////////
 
+/**
+ * Retrieves and validates all visible products in the shopping cart.
+ * - Gets current cart items count from @qtyAdded alias
+ * - Verifies visible rows match expected quantity
+ * - Extracts product details (title, price, delete button) from each row
+ * - Stores actual cart quantity in @qtyInCart alias
+ * 
+ * @returns {Cypress.Chainable<Array>} Chainable that resolves to array of product objects containing:
+ *           - title: string (product name)
+ *           - price: number (parsed integer)
+ *           - deleteButton: HTMLAnchorElement (delete button element)
+ * 
+ * @example
+ * Get and work with cart products
+ * cy.getListProductsInCart().then(products => {
+ *   products.forEach(product => {
+ *     cy.log(`Product: ${product.title}, Price: ${product.price}`);
+ *   });
+ * });
+ * 
+ * @example
+ * Verify cart quantity after retrieval
+ * cy.getListProductsInCart();
+ * cy.get("@qtyInCart").should("eq", 5);
+ * 
+ * @remarks
+ * - Requires these preconditions:
+ *   - @qtyAdded alias must be set before calling
+ *   - Cart must be loaded and visible
+ * - Uses these DOM selectors:
+ *   - tbody#tbodyid tr:visible (cart rows)
+ *   - cells[1] (product title cell)
+ *   - cells[2] (product price cell)
+ *   - a[onclick^="deleteItem"] (delete button)
+ * - Has 20 second timeout for cart loading
+ * - Performs these validations:
+ *   - Verifies row count matches @qtyAdded value
+ *   - Converts price text to integer
+ *   - Trims whitespace from product titles
+ */
+Cypress.Commands.add("getListProductsInCart", () => {
+    return cy.get("@qtyAdded").then(qty => {
+        return cy.get("tbody#tbodyid tr:visible", {
+                timeout: 20000
+            })
+            .should("have.length", qty)
+            .then($rows => {
+                const PRODUCTS = $rows.toArray().map(row => ({
+                    title: row.cells[1].textContent.trim(),
+                    price: parseInt(row.cells[2].textContent),
+                    deleteButton: row.querySelector("a[onclick^='deleteItem']")
+                }));
+                return cy.wrap(PRODUCTS.length).as("qtyInCart").then(() => PRODUCTS);
+            });
+    });
+});
+
+/**
+ * Deletes products from cart based on specified selection strategy.
+ * - Supports multiple deletion strategies (first, last, random, by name, etc.)
+ * - Handles both single and bulk deletions
+ * - Manages product quantities through Cypress aliases
+ * - Integrates with DELETE_RECURSIVE for complex deletion scenarios
+ * 
+ * @param {string} [selected="oneRandom"] - Deletion strategy to use:
+ *               - "first": Delete first product
+ *               - "last": Delete last product  
+ *               - "middle": Delete middle product
+ *               - "oneRandom": Delete random product (default)
+ *               - "all": Delete all products
+ *               - "oneName": Delete product by name
+ *               - "allName": Delete all products with matching name
+ *               - "anyRandom": Delete random quantity (leaving 2)
+ * @param {string} [titleProduct=null] - Product title to target (for name-based strategies)
+ * @returns {Cypress.Chainable<void>} Chainable command that resolves when deletion completes
+ * 
+ * @example
+ * Delete random product
+ * cy.clickDeleteFromCart();
+ * 
+ * @example  
+ * Delete first product
+ * cy.clickDeleteFromCart("first");
+ * 
+ * @example
+ * Delete all "Samsung" products  
+ * cy.clickDeleteFromCart("allName", "Samsung Galaxy S6");
+ * 
+ * @remarks
+ * - Uses these environment references:
+ *   - @qtyAdded: Initial cart quantity (as alias)
+ *   - selectedRepeatedProductName: Array of repeated products (in Cypress.env)
+ * - Sets these references:
+ *   - @qtyRemove: Number of products deleted (as alias)
+ *   - Updates @qtyAdded with remaining count
+ * - Requires these dependencies:
+ *   - DELETE_RECURSIVE helper function
+ *   - REMOVE_PRODUCTS helper function
+ *   - getListProductsInCart command
+ * - Special behaviors:
+ *   - "anyRandom" leaves exactly 2 products in cart
+ *   - Falls back to random selection if named product not found
+ *   - Logs actions and skips if cart is empty
+ */
+Cypress.Commands.add("clickDeleteFromCart", (selected = "oneRandom", titleProduct = null) => {
+    const DELETE_ACTIONS = {
+        first: (products) => [products[0]],
+        last: (products) => [products[products.length - 1]],
+        middle: (products) => [products[Math.floor(products.length / 2)]],
+        oneRandom: (products) => [Cypress._.sample(products)],
+
+        all: () => {
+            cy.get("@qtyAdded").then(initialQty => {
+                DELETE_RECURSIVE({
+                    strategy: "all",
+                    initialQty
+                });
+            });
+            return [];
+        },
+
+        oneName: (products) => {
+            const SELECTED_REPEATED_PRODUCTS = Cypress.env("selectedRepeatedProductName") || [];
+            let targetProduct = titleProduct;
+
+            if (!targetProduct || !SELECTED_REPEATED_PRODUCTS.some(p => p.name === targetProduct)) {
+                targetProduct = Cypress._.sample(SELECTED_REPEATED_PRODUCTS)?.name;
+                cy.log(`Producto seleccionado: $ {
+                    targetProduct
+                }`);
+            }
+
+            const MATCHING = products.filter(p => p.title === targetProduct);
+            return MATCHING.length ? [MATCHING[0]] : DELETE_ACTIONS.oneRandom(products);
+        },
+
+        allName: () => {
+            cy.getListProductsInCart().then(products => {
+                let nameToDelete = titleProduct || Cypress._.sample(products)?.title;
+                DELETE_RECURSIVE({
+                    strategy: "allName",
+                    nameToDelete
+                });
+            });
+            return [];
+        },
+
+        anyRandom: () => {
+            cy.get("@qtyAdded").then(initialQty => {
+                if (initialQty <= 2) {
+                    cy.log(`Solo hay ${initialQty} productos. No se elimina ninguno.`);
+                    cy.wrap(initialQty).as("qtyRemove");
+                    return;
+                }
+
+                const QTY_TO_DELETE = initialQty - 2;
+                cy.log(`Hay ${initialQty} productos. Se eliminarán ${QTY_TO_DELETE}.`);
+
+                DELETE_RECURSIVE({
+                    strategy: "anyRandom",
+                    initialQty,
+                    qtyToDelete: QTY_TO_DELETE
+                });
+            });
+
+            return [];
+        }
+    };
+
+
+    cy.getListProductsInCart().then(products => {
+        if (products.length === 0) {
+            cy.log("Carro vacío");
+            return;
+        }
+
+        const PRODUCTS_TO_DELETE = DELETE_ACTIONS[selected](products);
+
+        if (PRODUCTS_TO_DELETE.length > 0) {
+            REMOVE_PRODUCTS(PRODUCTS_TO_DELETE);
+        }
+    });
+});
+////////////////////////////////////////////////////
