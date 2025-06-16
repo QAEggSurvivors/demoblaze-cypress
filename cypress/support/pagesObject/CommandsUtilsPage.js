@@ -1,6 +1,6 @@
 import {
-    saveCategoryProducts,
-    clickCategoryName
+    SAVE_CATEGORY_PRODUCTS,
+    CLICK_CATEGORY_NAME,
 } from "../utils";
 
 import HomePage from "./HomePage";
@@ -53,14 +53,14 @@ class CommandsUtilsPage extends HomePage {
             .then(text => text.trim());
     };
     getProductRowByNameOnCart = (name) => {
-        return cy.get(LOCATORS.cssProductRowOnCart, {
+        return cy.get(LOCATORS.cartRowCss, {
                 timeout: 10000
             })
             .filter((index, el) => el.innerText.includes(name))
             .first();
     };
     getProductPriceFromRowOnCart = ($row) => {
-        return cy.wrap($row).find(LOCATORS.cssProductPriceOnCart) 
+        return cy.wrap($row).find(LOCATORS.cartPriceCss)
             .should("exist")
             .invoke('text')
             .then(text => text.trim());
@@ -68,9 +68,12 @@ class CommandsUtilsPage extends HomePage {
     getProductNames = (name) => {
         return Cypress.env(name) || [];
     };
+    getListProductsInCart() {
+        return cy.getListProductsInCart();
+    }
 
     clickCategoryName = (categoryName) => {
-        return clickCategoryName(categoryName);
+        return CLICK_CATEGORY_NAME(categoryName);
     };
     clickCategoryByNameOrRandom = (categoryName) => {
         return cy.clickRandomCategory(categoryName);
@@ -84,9 +87,12 @@ class CommandsUtilsPage extends HomePage {
     clickProductByTitleWithNextButton = (productName) => {
         return cy.clickProductByTitleWithNextButton(productName);
     };
-    clickMultipleProductsByNameWithNextButton = (min, max) => {
-        return cy.clickMultipleProductsByNameWithNextButton(min, max);
+    clickRandomMultipleProductsWithNextButton = (min, max,isRepeatProduct, isEnsureRepeated,titleProduct) => {
+        return cy.clickRandomMultipleProductsWithNextButton(min, max,isRepeatProduct,isEnsureRepeated,titleProduct);
     };
+    clickDeleteFromCart(selected, titleProduct) {
+        return cy.clickDeleteFromCart(selected, titleProduct)
+    }
 
     putAlias = (name, alias) => {
         return cy.wrap(name).as(alias);
@@ -94,7 +100,7 @@ class CommandsUtilsPage extends HomePage {
 
     saveProductsByCategory = (categoryName) => {
         return cy.wrap(categoryName).then((catName) => {
-            return saveCategoryProducts(catName);
+            return SAVE_CATEGORY_PRODUCTS(catName);
         });
     };
 
