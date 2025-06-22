@@ -1,72 +1,80 @@
 Feature: Header
-    # brand logo
+    # Brand logo
     @header
-    Scenario: Navigate to home with brand logo from "<page>" page
+    Scenario Outline: Navigate to home with brand logo from "<page>" page
         Given I navigate to the "<page>" page
-        When I click the navbar brand logo
-        Then I should be redirected to the home page
-    Example:
+        When I click the navbar "Brand logo"
+        Then I should be redirected to the "Home" page
+    Examples:
             | page    |
-            | home    |
-            | product |
-            | cart    |
+            | Product |
+            | Cart    |
 
-    # home button
+    # Home button
     @header
-    Scenario: Navigate to home with home button from "<page>" page
+    Scenario Outline: Navigate to Home with Home button from "<page>" page
         Given I navigate to the "<page>" page
-        When I click the navbar home button
-        Then I should be redirected to the home page
-    Example:
+        When I click the navbar "Home button"
+        Then I should be redirected to the "Home" page
+    Examples:
             | page    |
-            | home    |
-            | product |
-            | cart    |
-
-    # contact button
+            | Product |
+            | Cart    |
+    
+    # Cart button
     @header
-    Scenario: Open contact modal with contact button from "<page>" page
+    Scenario Outline: Navigate to Cart page with Cart button from "<page>" page
         Given I navigate to the "<page>" page
-        When I click the navbar contact button
-        Then I should see the contact modal appears
-    Example:
+        When I click the navbar "Cart button"
+        Then I should be redirected to the "Cart" page
+    Examples:
+            | page    | 
+            | Home    | 
+            | Product | 
+
+    # Contact button
+    @header
+    Scenario Outline: Open Contact modal with Contact button from "page" page
+        Given I navigate to the "page" page
+        When I click the navbar "Contact button"
+        Then I should see the "Contact" modal appears
+    Examples:
             | page    |
-            | home    |
+            | Home    |
             | product |
-            | cart    |
+            | Cart    |
 
-    # cart button
+    # Log in button
     @header
-    Scenario: Navigate to cart page with cart button from "<page>" page
-        Given I navigate to the "<page>" page
-        When I click the navbar cart button
-        Then "<validation>"
-    Example:
-            | page    | validation                                 |
-            | home    | I should be redirected to the cart page    |
-            | product | I should be redirected to the cart page    |
-            | cart    | I should see that the page does not change |
-
-    # login button
-    @header
-    Scenario: Open the login modal from "<page>" page
-        Given I navigate to the "<page>" page
-        When I click the navbar login button
-        Then I should see the login modal appears
-    Example:
+    Scenario Outline: Open the Log in modal from "page" page
+        Given I navigate to the "page" page
+        When I click the navbar "Log in button"
+        Then I should see the "Log in" modal appears
+    Examples:
             | page    |
-            | home    |
+            | Home    |
             | product |
-            | cart    |
+            | Cart    |
 
-    # sign up button
+    # Sign up button
     @header
-    Scenario: Open the sign up modal from "<page>" page
-        Given I navigate to the "<page>" page
-        When I click the navbar sign button
-        Then I should see the sign up modal appears
-    Example:
+    Scenario Outline: Open the Sign up modal from "page" page
+        Given I navigate to the "page" page
+        When I click the navbar "Sign up button"
+        Then I should see the "Sign up" modal appears
+    Examples:
             | page    |
-            | home    |
-            | product |
-            | cart    |
+            | Home    |
+            | Product |
+            | Cart    |
+    
+    # About us button
+    Scenario Outline: Open the About us modal from "page" page
+        Given I navigate to the "page" page
+        When I click the navbar "About us button"
+        Then I should see the "About us" modal appears
+    Examples:
+            | page    |
+            | Home    |
+            | Product |
+            | Cart    |
