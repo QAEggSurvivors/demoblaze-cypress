@@ -6,8 +6,8 @@ class HomePage {
   getContact = () => cy.get(LOCATORS.linkContactCss);
   getAboutus = () => cy.get(LOCATORS.linkAboutusCss);
   getCart = () => cy.get(LOCATORS.linkCartId);
-  getLogIn = () => cy.get(LOCATORS.linkLogInId);
-  getSignUp = () => cy.get(LOCATORS.linkSignUpId);
+  getLogin = () => cy.get(LOCATORS.linkLoginId);
+  getSignup = () => cy.get(LOCATORS.linkSignupId);
   getLogout = () => cy.get(LOCATORS.linkLogoutId);
   getUserName = () => cy.get(LOCATORS.linkUserNameId);
   getCarouselLeftArrow = () => cy.get(LOCATORS.linkCarouselLeftArrowClass);
@@ -43,11 +43,11 @@ class HomePage {
   clickCart() {
     this.getCart().click();
   }
-  clickLogIn() {
-    this.getLogIn().click();
+  clickLogin() {
+    this.getLogin().click();
   }
-  clickSignUp() {
-    this.getSignUp().click();
+  clickSignup() {
+    this.getSignup().click();
   }
   clickLogout() {
     this.getLogout().click();
@@ -97,43 +97,5 @@ class HomePage {
   clickNextButton() {
     this.getNextButton().click();
   }
-  getCategoriesTitle() {
-    return cy.get(LOCATORS.categoryTitle);
-  }
-  getTitleCartPage() {
-    return cy.get(LOCATORS.titleCartPageCss).contains(LOCATORS.titleCartPageText);
-  }
-  getModalTitle(modalName) {
-    return cy.getModalTitle(modalName);
-  }
-  clickProductByTitleRandom() {
-    return cy.clickProductByTitleRandom();
-  }
-  fillCartWithRandomProducts(quantity, duplicatesOption, titleProduct=null) {
-    const IS_REPEAT_PRODUCT = !duplicatesOption.includes('without');
-    const IS_ENSURE_REPEATED = IS_REPEAT_PRODUCT;
-    if (titleProduct === "none") {
-      titleProduct = null;
-    }
-    let min, max;
-    if (quantity=== "random") {
-      min = 0;
-      max = 0;
-    } else { 
-      min = parseInt(quantity, 10);
-      max = parseInt(quantity, 10);
-    }
-    this.goMainUrl();
-    return cy.clickRandomMultipleProductsWithNextButton(min, max, IS_REPEAT_PRODUCT, IS_ENSURE_REPEATED, titleProduct);
-  }
-  getProductDataFromFixtures(productName) {
-    const ALL_PRODUCTS = [
-      ...Cypress.env('laptops'),
-      ...Cypress.env('monitors'),
-      ...Cypress.env('phones')
-    ];
-    return ALL_PRODUCTS.find(product => product.name === productName);
-  }
-  
 }
 export default HomePage;
