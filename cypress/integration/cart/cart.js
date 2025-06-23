@@ -1,41 +1,59 @@
-import {
-  Given,
-  When,
-  And,
-  Then
-} from "cypress-cucumber-preprocessor/steps";
+// BORRAR ESTE TEXTO ES SOLO CON CARACTER INFORMATIVO
+// // UNA REFERENCIA ESTA EN LA PAGINA example/example.js
 
-Given('The cart contains at least {string} products {string} duplicates {string}', (quantity, article, title) => {
-  cy.CartPage.fillCartWithRandomProducts(quantity, article, title);
-});
+// // simempre importar: 
+// import {
+//     Given,
+//     When,
+//     And,
+//     Then
+// } from "cypress-cucumber-preprocessor/steps";
+// // Los archivos steps para la ejecucion de las pruebas
+// // NO PUEDEN tener funciones nativas de cypress
+// // ESTO SIGNIFICA que las funciones nativas las manejan
+// // las pages objects. Esto es cy.get(), cy.contains() o similares
+// // Como vamos a crear commands estan tampoco pueden ser llamadas
+// // TAMPOCO PUEDEN SER LLAMADAS DIRECTAMENTE en los steps page
 
-When('I click on the cart header button', () => {
-  cy.CartPage.clickCart();
-});
+// // Lo que generalmente si DEBE estar aca son los .SHOULD para 
+// // hacer las verificaciones solo en los THEN no pueden estar en otra
+// // parte si lo necesita encapsulelo en el pages object 
 
-Then('I should {string} the product in the cart', (question) => {
-  let selectedProducts;
-  if (question === 'see') {
-    selectedProducts = Cypress.env("selectedProductName") || [];
-  } else {
-    selectedProducts = Cypress.env("productNameAfterDelete") || [];
-  }
-  const EXPECTED_TITLES = selectedProducts.map(p => String(p).trim());
-  cy.CartPage.getListProductsInCart().then((products) => {
-    const CART_TITLES = products.map(p => String(p.title).trim());
-    expect([...CART_TITLES].sort()).to.deep.equal([...EXPECTED_TITLES].sort());
-  });
-});
+// // SE DEBE USAR PRIMERO comillas simples (') y LUEGO comillas dobles (")
+// // SE PUEDE USAR CONTROLADORES JAVASCRIPT tipo IF/operador ternario/FOR/EACH
+// // pero no se recomienda, mejor usar dicha lógica en el page object
 
-And('I click on the {string} button for the product {string} in the cart', (buttonText, titleProduct) => {
-  cy.CartPage.clickDeleteFromCart(titleProduct);
-});
 
-Then('I should see the correct total price in the cart', () => {
-  cy.then(() => {
-    const EXPECTED_TOTAL = cy.CartPage.getTotalPriceOfSelected(); 
-    cy.CartPage.getCartTotalPrice().then((actualTotal) => {
-      expect(actualTotal).to.equal(EXPECTED_TOTAL);
-    });
-  });
-});
+// // en la page object example 
+// // goWebpage() {return cy.visit("/")}
+// Given('I open Google page', () => {
+//         cy.HomePage.goWebpage();
+//     }),
+//     // en la page object example 
+//     // typeSearchBar(search) {
+//     // return cy.get(Cypress.env('fixture').idSearchbar).typeSlowly(search)}
+//     When('I write in the search bar {string}', (search) => {
+//         cy.HomePage.typeSearchBarAnd(search);
+//     }),
+//     // en la page object example 
+//     // enterSearchBar() {
+//     // return cy.get(Cypress.env('fixture').idSearchbar).type({enter})}
+//     And('I press enter on the keyboard', () => {
+//         cy.HomePage.enterSearchBar();
+//     }),
+//     // en la page object example 
+//     // getTitle() {
+//     // return cy.get(Cypress.env('fixture').idTitleGoogleSearch)
+//     Then(`I see {string} in the title`, (title) => {
+//         cy.HomePage.getTitle().should('contain', title);
+//     }),
+//     // en la page object example 
+//     // getListSearchResult() {
+//     // return cy.get(Cypress.env('fixture').xpathListSearchResult)
+//     And('I see {string} among the first 5 search results', (search) => {
+//         cy.HomePage.getListSearchResult().should("contain", search);
+//     })
+
+// // recuerda que por nuestra configuración las page objects se instancian
+// // en el /support/index.js en un before each y se convierten en metodos
+// // nativos cypress por eso se usa: cy.PageObject para llamar a sus metodos
