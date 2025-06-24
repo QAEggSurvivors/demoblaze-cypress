@@ -1,59 +1,79 @@
-// BORRAR ESTE TEXTO ES SOLO CON CARACTER INFORMATIVO
-// // UNA REFERENCIA ESTA EN LA PAGINA example/example.js
+import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
+import ContactWindow from '../../support/pagesObject/ContactWindow';
 
-// // simempre importar: 
-// import {
-//     Given,
-//     When,
-//     And,
-//     Then
-// } from "cypress-cucumber-preprocessor/steps";
-// // Los archivos steps para la ejecucion de las pruebas
-// // NO PUEDEN tener funciones nativas de cypress
-// // ESTO SIGNIFICA que las funciones nativas las manejan
-// // las pages objects. Esto es cy.get(), cy.contains() o similares
-// // Como vamos a crear commands estan tampoco pueden ser llamadas
-// // TAMPOCO PUEDEN SER LLAMADAS DIRECTAMENTE en los steps page
+const contactWindow = new ContactWindow();
+// Handles transition errors from Bootstrap on the Contact modal
+Cypress.on('uncaught:exception', (err, runnable) => {
+  if (err.message.includes('Modal is transitioning')) return false;
+});
 
-// // Lo que generalmente si DEBE estar aca son los .SHOULD para 
-// // hacer las verificaciones solo en los THEN no pueden estar en otra
-// // parte si lo necesita encapsulelo en el pages object 
+// Background
+Given('I navigate to the Demoblaze home page', () => {
+  contactWindow.goMainUrl();
+});
 
-// // SE DEBE USAR PRIMERO comillas simples (') y LUEGO comillas dobles (")
-// // SE PUEDE USAR CONTROLADORES JAVASCRIPT tipo IF/operador ternario/FOR/EACH
-// // pero no se recomienda, mejor usar dicha lógica en el page object
+// Open and close the contact modal
+When('I click on the {string} button in the header', (button) => {
+  if (button === 'Contact') {
+    contactWindow.clickContact();
+  }
+});
+
+When('I wait for the contact modal to appear', () => {
+  cy.wait(1000); // Due to delay in the element visibility
+  cy.get('#exampleModal').should('have.class', 'show');
+  contactWindow.getContactEmailInput().should('be.visible');
+});
+
+When('I click on the "Close" button in the contact modal', () => {
+  contactWindow.clickCloseButton();
+});
+
+Then('I should not see the contact modal', () => {
+  cy.wait(1000); 
+  // Due to delay in how to web hides the element post closing the modal
+  cy.get('#exampleModal').should('not.have.class', 'show');
+});
 
 
-// // en la page object example 
-// // goWebpage() {return cy.visit("/")}
-// Given('I open Google page', () => {
-//         cy.HomePage.goWebpage();
-//     }),
-//     // en la page object example 
-//     // typeSearchBar(search) {
-//     // return cy.get(Cypress.env('fixture').idSearchbar).typeSlowly(search)}
-//     When('I write in the search bar {string}', (search) => {
-//         cy.HomePage.typeSearchBarAnd(search);
-//     }),
-//     // en la page object example 
-//     // enterSearchBar() {
-//     // return cy.get(Cypress.env('fixture').idSearchbar).type({enter})}
-//     And('I press enter on the keyboard', () => {
-//         cy.HomePage.enterSearchBar();
-//     }),
-//     // en la page object example 
-//     // getTitle() {
-//     // return cy.get(Cypress.env('fixture').idTitleGoogleSearch)
-//     Then(`I see {string} in the title`, (title) => {
-//         cy.HomePage.getTitle().should('contain', title);
-//     }),
-//     // en la page object example 
-//     // getListSearchResult() {
-//     // return cy.get(Cypress.env('fixture').xpathListSearchResult)
-//     And('I see {string} among the first 5 search results', (search) => {
-//         cy.HomePage.getListSearchResult().should("contain", search);
-//     })
+// Submit the contact form with valid data
+When('I type {string} in the {string} field', (text, field) => {
+  switch (field) {
+    case 'Contact Email':
+      contactWindow.typeContactEmail(text);
+      break;
+    case 'Contact Name':
+      contactWindow.typeContactName(text);
+      break;
+    case 'Message':
+      contactWindow.typeContactMessage(text);
+      break;
+  }
+});
 
-// // recuerda que por nuestra configuración las page objects se instancian
-// // en el /support/index.js en un before each y se convierten en metodos
-// // nativos cypress por eso se usa: cy.PageObject para llamar a sus metodos
+// Submit the contact form with empty fields
+When('I leave the {string} field empty', (field) => {
+  switch (field) {
+    case 'Contact Email':
+      contactWindow.getContactEmailInput().clear();
+      break;
+    case 'Contact Name':
+      contactWindow.getContactNameInput().clear();
+      break;
+    case 'Message':
+      contactWindow.getContactMessageInput().clear();
+      break;
+  }
+});
+
+When('I click on the {string} button in the contact modal', (button) => {
+  if (button === 'Send') {
+    contactWindow.clickSendButton();
+  }
+});
+
+Then('I should see an alert with the message {string}', (expectedAlertText) => {
+  cy.on('window:alert', (actualText) => {
+    expect(actualText).to.equal(expectedAlertText);
+  });
+});
