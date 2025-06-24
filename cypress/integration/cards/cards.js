@@ -1,59 +1,64 @@
-// BORRAR ESTE TEXTO ES SOLO CON CARACTER INFORMATIVO
-// // UNA REFERENCIA ESTA EN LA PAGINA example/example.js
+import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
+import CardsPage from '../../support/pagesObject/cardsPage';
 
-// // simempre importar: 
-// import {
-//     Given,
-//     When,
-//     And,
-//     Then
-// } from "cypress-cucumber-preprocessor/steps";
-// // Los archivos steps para la ejecucion de las pruebas
-// // NO PUEDEN tener funciones nativas de cypress
-// // ESTO SIGNIFICA que las funciones nativas las manejan
-// // las pages objects. Esto es cy.get(), cy.contains() o similares
-// // Como vamos a crear commands estan tampoco pueden ser llamadas
-// // TAMPOCO PUEDEN SER LLAMADAS DIRECTAMENTE en los steps page
+const cardsPage = new CardsPage();
 
-// // Lo que generalmente si DEBE estar aca son los .SHOULD para 
-// // hacer las verificaciones solo en los THEN no pueden estar en otra
-// // parte si lo necesita encapsulelo en el pages object 
+const productPosition = {
+    'first': 0,
+    'second': 1,
+    'third': 2
+};
 
-// // SE DEBE USAR PRIMERO comillas simples (') y LUEGO comillas dobles (")
-// // SE PUEDE USAR CONTROLADORES JAVASCRIPT tipo IF/operador ternario/FOR/EACH
-// // pero no se recomienda, mejor usar dicha lógica en el page object
+// Go to product page
+Given('I navigate to the home page', () => {
+    cardsPage.goMainUrl(); 
+});
 
+When('I click the {string} product {string}', (product, link) => {
+    const index = productPosition[product];
+    if (link === 'name') {
+        cardsPage.clickCardTitle(index);
+    } else if (link === 'image') {
+        cardsPage.clickCardImage(index);
+    }
+});
 
-// // en la page object example 
-// // goWebpage() {return cy.visit("/")}
-// Given('I open Google page', () => {
-//         cy.HomePage.goWebpage();
-//     }),
-//     // en la page object example 
-//     // typeSearchBar(search) {
-//     // return cy.get(Cypress.env('fixture').idSearchbar).typeSlowly(search)}
-//     When('I write in the search bar {string}', (search) => {
-//         cy.HomePage.typeSearchBarAnd(search);
-//     }),
-//     // en la page object example 
-//     // enterSearchBar() {
-//     // return cy.get(Cypress.env('fixture').idSearchbar).type({enter})}
-//     And('I press enter on the keyboard', () => {
-//         cy.HomePage.enterSearchBar();
-//     }),
-//     // en la page object example 
-//     // getTitle() {
-//     // return cy.get(Cypress.env('fixture').idTitleGoogleSearch)
-//     Then(`I see {string} in the title`, (title) => {
-//         cy.HomePage.getTitle().should('contain', title);
-//     }),
-//     // en la page object example 
-//     // getListSearchResult() {
-//     // return cy.get(Cypress.env('fixture').xpathListSearchResult)
-//     And('I see {string} among the first 5 search results', (search) => {
-//         cy.HomePage.getListSearchResult().should("contain", search);
-//     })
+Then('I should be redirected to url {string}', (expectedUrl) => {
+  cy.get('.btn-success').should('be.visible');
+  cy.url().then((actualUrl) => {
+      const actualPath = new URL(actualUrl).pathname + new URL(actualUrl).search;
+      const expectedPath = new URL(expectedUrl).pathname + new URL(expectedUrl).search;
+      expect(actualPath).to.equal(expectedPath);
+  });
+});
 
-// // recuerda que por nuestra configuración las page objects se instancian
-// // en el /support/index.js en un before each y se convierten en metodos
-// // nativos cypress por eso se usa: cy.PageObject para llamar a sus metodos
+// Validate product information
+let productToValidate;
+
+When('I see the {string}', (product) => {
+    productToValidate = product;
+    cy.log(`Validating info for: ${productToValidate}`);
+});
+
+Then('I should see that the {string} is {string}', (section, info) => {
+    const index = productPosition[productToValidate];
+    switch (section) {
+        case 'name':
+            cardsPage.getCardTitleText(index).then((actualText) => {
+                expect(actualText).to.equal(info);
+            });
+            break;
+        case 'price':
+            cardsPage.getCardPriceText(index).then((actualText) => {
+                expect(actualText).to.include(info);
+            });
+            break;
+        case 'description':
+            cardsPage.getCardDescriptionText(index).then((actualText) => {
+                const cleanedActualText = actualText.replace(/\s+/g, ' ').trim();
+                const cleanedInfo = info.replace(/\s+/g, ' ').trim();
+                expect(cleanedActualText).to.equal(cleanedInfo);
+            });
+            break;
+    }
+});
